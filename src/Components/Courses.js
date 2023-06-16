@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { CourseList } from "./CourseList";
 
 const cData = [
@@ -15,10 +16,29 @@ const cData = [
         id: 3,
         name: "Lakshman",
         course: "JS"
-    }
+    },
+    {
+      id: 4,
+      name: "Jenifer",
+      course: "CSS" 
+  }
 ]
 
 const Courses = () => {
+const [course, setCourse] =  useState(cData);
+
+
+const addCourse = () =>{
+setCourse([
+  ...course,
+    {
+      id: 5,
+      name: "Robert",
+      course: "HTML"  
+  }
+])
+};
+
   return (
     <>
       <table className="table">
@@ -30,11 +50,12 @@ const Courses = () => {
           </tr>
         </thead>
         <tbody>
-            {cData.map((item,index)=>(
+            {course.map((item,index)=>(
                 <CourseList key={item.id} data={item}/>
             ))}
         </tbody>
       </table>
+      <button type="button" className="btn btn-secondary" onClick={addCourse}>Secondary</button>
     </>
   );
 };
