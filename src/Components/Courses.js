@@ -1,31 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CourseList } from "./CourseList";
 
-const cData = [
-    {
-        id: 1,
-        name: "Ram",
-        course: "Angular"
-    },
-    {
-        id: 2,
-        name: "Sita",
-        course: "React"
-    },
-    {
-        id: 3,
-        name: "Lakshman",
-        course: "JS"
-    },
-    {
-      id: 4,
-      name: "Jenifer",
-      course: "CSS" 
-  }
-]
 
-const Courses = () => {
-const [course, setCourse] =  useState(cData);
+const Courses = ({selectCourse}) => {
+const [course, setCourse] =  useState([]);
+
+
+useEffect(()=>{
+
+  const fetchCourse = async ()=>{
+    const response = await fetch("https://reqres.in/api/users");
+    const res = await response.json();
+    //console.log("rogue function");
+    setCourse(res.data);
+
+  } 
+
+
+fetchCourse();
+},[])
+
 
 
 const addCourse = () =>{
@@ -51,11 +45,11 @@ setCourse([
         </thead>
         <tbody>
             {course.map((item,index)=>(
-                <CourseList key={item.id} data={item}/>
+                <CourseList key={item.id} data={item} selectCourse={selectCourse}/>
             ))}
         </tbody>
       </table>
-      <button type="button" className="btn btn-secondary" onClick={addCourse}>Secondary</button>
+      <button type="button" className="btn btn-secondary" onClick={addCourse}>Add Course</button>
     </>
   );
 };

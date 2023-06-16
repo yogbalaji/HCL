@@ -1,10 +1,10 @@
-export const CourseList = ({ data }) => {
+export const CourseList = ({ data, selectCourse }) => {
   return (
     <>
-      <tr>
+      <tr onClick={()=>selectCourse(data)}>
         <td className={`${data.id > 2 ? "text-danger" : "text-primary"}`}>{data.id}</td>
-        <td>{data.name}</td>
-        {data.course && <td>{data.course}</td>}
+        <td>{data.first_name}</td>
+        <td>{data.email}</td>
         
       </tr>
     </>
